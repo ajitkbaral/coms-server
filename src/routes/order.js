@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Order = require("../model/Order");
 const Customer = require("../model/Customer");
-const { orderValidation } = require("../validation");
 
 router.get("/", async (req, res) => {
   const orders = await Order.find().populate(["customer", "products"]);
@@ -20,9 +19,6 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  // Validate order
-  // const { error } = orderValidation(req.body);
-  // if (error) return res.status(400).send(error.details[0].message);
   // Check if customer already exists in db
   const customer = await Customer.findOne({ _id: req.body.customerId });
   if (!customer) return res.status(400).send("Customer Doesnot Exists");
@@ -44,16 +40,12 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-  const orderId = req.params.id;
   const order = await Order.findById(req.params.id);
   const deletedOrder = await order.deleteOne();
   res.send(deletedOrder);
 });
 
 router.put("/:id", async (req, res) => {
-  // Validate order
-  // const { error } = orderValidation(req.body);
-  // if (error) return res.status(400).send(error.details[0].message);
   const orderId = req.params.id;
   const order = await Order.findById(orderId);
   if (!order) return res.status(400).send("Order Doesnot Exists");

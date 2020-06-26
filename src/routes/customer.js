@@ -1,5 +1,4 @@
 const express = require("express");
-// import verify from "./verifyToken";
 const Customer = require("../model/Customer");
 const Order = require("../model/Order");
 
