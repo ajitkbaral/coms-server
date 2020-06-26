@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Order = require("../model/Order");
 const Customer = require("../model/Customer");
+const Product = require("../model/Product");
 
 router.get("/", async (req, res) => {
   const orders = await Order.find().populate(["customer", "products"]);
@@ -50,6 +51,10 @@ router.put("/:id", async (req, res) => {
   const order = await Order.findById(orderId);
   if (!order) return res.status(400).send("Order Doesnot Exists");
   try {
+    let total = 0;
+    req.body.products.forEach(async (p) => {
+      total += p.price;
+    });
     const updatedOrder = await Order.updateOne(
       { _id: req.params.id },
       {
@@ -58,6 +63,7 @@ router.put("/:id", async (req, res) => {
         city: req.body.city,
         state: req.body.state,
         zipCode: req.body.zipCode,
+        total,
       }
     );
     return res.send(updatedOrder);
