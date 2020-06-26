@@ -1,0 +1,25 @@
+{
+  "name": "com.ajitkbaral.coms",
+  "version": "1.0.0",
+  "description": "Customer Order Management System",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon src/app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Customer",
+    "Order",
+    "Management",
+    "System"
+  ],
+  "author": "Ajit Kumar Baral",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.20",
+    "nodemon": "^2.0.4"
+  }
+}
